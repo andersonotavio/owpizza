@@ -9,7 +9,7 @@ A modern and easy-to-use app for ordering custom pizzas quickly.
 
 
 ## Tech Stack
-- **Frontend**: NextJs, React, Tailwind CSS
+- **Frontend**: NextJs, React, Tailwind CSS, Shadcn
 - **Backend**: NextJs, Prisma, Postgres, Railway
 - **Deployment**: Vercel
 
