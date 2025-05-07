@@ -1,18 +1,16 @@
-# Front-Clone_X (being developed...)
+# 🍕 PizzaApp
 
-A social media clone of X built with Next.js, Tailwind CSS
+A modern and easy-to-use app for ordering custom pizzas quickly.
 
 ## Features
 - User authentication (Sign up, login, logout)
 - Browse pizza menu with images and ingredients
 - Add items to cart and place orders
-- Follow/unfollow users
-- Real-time updates
-- Profile customization
+
 
 ## Tech Stack
-- **Frontend**: Next.js, React, Tailwind CSS
-- **Backend**: NodeJs, Prisma, Postgres
+- **Frontend**: NextJs, React, Tailwind CSS
+- **Backend**: NextJs, Prisma, Postgres, Railway
 - **Deployment**: Vercel
 
 ## Installation
