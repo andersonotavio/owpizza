@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import { Header } from "@/components/layout/header";
 import { api } from "@/lib/axios";
 import { PizzaList } from "@/components/home/pizza-list";

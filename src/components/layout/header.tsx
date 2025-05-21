@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import { Button } from "../ui/button"
+import { CartButton } from "../cart/button-cart"
 
 export function Header(){
   return (
@@ -11,7 +12,7 @@ export function Header(){
       </Link>
       <div className="flex gap-2">
         <Button className="cursor-pointer">Login/Cadastro</Button>
-        <Button className="cursor-pointer">carrinho</Button>
+        <CartButton />
       </div>
     </header>
   )
