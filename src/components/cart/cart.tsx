@@ -3,6 +3,8 @@
 import { useCart } from "@/store/cart"
 import { Drawer, DrawerContent, DrawerTitle } from "../ui/drawer"
 import { useEffect, useState } from "react";
+import { CartEmpty } from "./button-empty";
+import { ListCart } from "./list-cart";
 
 export const Cart = () => {
   const cart = useCart();
@@ -18,8 +20,10 @@ export const Cart = () => {
       open={open}
       onOpenChange={open => cart.setOpen(open)}
     >
-      <DrawerContent>
+      <DrawerContent className="p-4">
         <DrawerTitle>Carrinho</DrawerTitle>
+        {cart.items.length <= 0 && <CartEmpty />}
+        {cart.items.length > 0 && <ListCart />}
       </DrawerContent>
     </Drawer>
   )
