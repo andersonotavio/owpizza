@@ -1,14 +1,23 @@
 
 import { Header } from "@/components/layout/header";
-import { api } from "@/lib/axios";
+// import { api } from "@/lib/axios";
 import { PizzaList } from "@/components/home/pizza-list";
-import { Product } from "@/generated/prisma";
+// import { Product } from "@/generated/prisma";
+import { getAllProducts } from "@/services/product";
 
 
 
 export default async function Page() {
-  const pizzasReq = await api.get<{ pizzas: Product[] }>('/pizzas');
-  const pizzas = pizzasReq.data.pizzas ?? [];
+  // const pizzasReq = await api.get<{ pizzas: Product[] }>('/pizzas');
+  // const pizzas = pizzasReq.data.pizzas ?? [];
+
+    let pizzas = await getAllProducts();
+  
+  // Aplique a mesma transformação das imagens
+  pizzas = pizzas.map((pizza) => ({
+    ...pizza,
+    image: `${process.env.NEXT_PUBLIC_BASE_URL}/pizzas/${pizza.image}`,
+  }));
 
   return (
     <div>
