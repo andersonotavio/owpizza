@@ -1,7 +1,9 @@
-import { useCart } from "@/store/cart"
-import { Button } from "../ui/button"
+import { useCart } from "@/store/cart";
+import { Button } from "../ui/button";
 import { useProducts } from "@/store/products";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { CartProducts } from "./cart-products";
+import { decimalToMoney } from "@/lib/utils";
 
 export const ListCart = () => {
   const cart = useCart();
@@ -9,17 +11,37 @@ export const ListCart = () => {
 
   const [subTotal, setSubTotal] = useState(0);
   const [shipping, setShipping] = useState(10);
+
+  const calculateSubTotal = () => {
+    let sub = 0;
+    for (let item of cart.items) {
+      const prod = products.products.find(
+        (pitem) => pitem.id === item.productId
+      );
+      if (prod) {
+        sub += item.quantity * parseFloat(prod.price.toString());
+      }
+      setSubTotal(sub);
+    }
+  };
+
+  useEffect(calculateSubTotal, [cart]);
+
   return (
     <>
-      <div>
-        <p>---</p>
+      <div className="flex flex-col gap-3 my-5">
+        <p>
+          {cart.items.map((item) => (
+            <CartProducts key={item.productId} data={item} />
+          ))}
+        </p>
       </div>
-      <div>
-        <div>Sub-total:</div>
-        <div>Frete:</div>
-        <div>Total:</div>
+      <div className="my-4 text-right">
+        <div>Sub-total: {decimalToMoney(subTotal)}</div>
+        <div>Frete: {decimalToMoney(shipping)}</div>
+        <div className="bold">Total: {decimalToMoney(subTotal + shipping)}</div>
       </div>
       <Button>Finalizar Compra</Button>
     </>
-  )
-}
+  );
+};

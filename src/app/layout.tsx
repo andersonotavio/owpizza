@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Cart } from "@/components/cart/cart";
 
+
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
 //   subsets: ["latin"],
@@ -14,7 +15,7 @@ import { Cart } from "@/components/cart/cart";
 // });
 
 export const metadata: Metadata = {
-  title: "owpizza",
+  title: "Owpizza",
 
 };
 
