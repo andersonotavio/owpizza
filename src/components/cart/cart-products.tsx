@@ -6,6 +6,7 @@ import { CartItem } from "@/types/cart-item";
 import Image from "next/image";
 import { Button } from "../ui/button";
 import { useState } from "react";
+import { useCart } from "@/store/cart";
 
 type Props = {
   data: CartItem;
@@ -14,8 +15,23 @@ type Props = {
 export const CartProducts = ({ data }: Props) => {
   const [qt, setQt] = useState(data.quantity);
   const products = useProducts();
+  const cart = useCart();
   let product = products.products.find((item) => item.id === data.productId);
   if (!product) return null;
+
+  const handleMinus = () => {
+    if (qt - 1 <= 0) {
+      cart.removeItem(data.productId);
+    } else {
+      cart.addItem({ productId: product.id, quantity: -1 });
+      setQt(qt - 1);
+    }
+  };
+
+  const handlePlus = () => {
+    cart.addItem({ productId: product.id, quantity: 1 });
+    setQt(qt + 1);
+  };
   return (
     <div className="flex items-center gap-3">
       <div className="w-10">
@@ -32,11 +48,21 @@ export const CartProducts = ({ data }: Props) => {
         <div className="text-sm">{decimalToMoney(product.price)}</div>
       </div>
       <div className="flex items-center bg-secondary rounded-md">
-        <Button size="sm" variant="ghost">
+        <Button
+          className="cursor-pointer"
+          onClick={handleMinus}
+          size="sm"
+          variant="ghost"
+        >
           -
         </Button>
         <div className="mx-3">{qt}</div>
-        <Button size="sm" variant="ghost">
+        <Button
+          className="cursor-pointer"
+          onClick={handlePlus}
+          size="sm"
+          variant="ghost"
+        >
           +
         </Button>
       </div>

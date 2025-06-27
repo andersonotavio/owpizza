@@ -30,11 +30,11 @@ export const ListCart = () => {
   return (
     <>
       <div className="flex flex-col gap-3 my-5">
-        <p>
+        <div>
           {cart.items.map((item) => (
             <CartProducts key={item.productId} data={item} />
           ))}
-        </p>
+        </div>
       </div>
       <div className="my-4 text-right">
         <div>Sub-total: {decimalToMoney(subTotal)}</div>
