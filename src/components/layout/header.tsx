@@ -1,11 +1,12 @@
-"use client";
-
 import Link from "next/link";
-import { Button } from "../ui/button";
 import { CartButton } from "../cart/button-cart";
 import Image from "next/image";
+import { LoginAreaButton } from "../login-area/login-area-button";
+import { cookies } from "next/headers";
 
-export function Header() {
+export async function Header() {
+  const cookiesStore = await cookies();
+  const token = cookiesStore.get("token");
   return (
     <header className=" bg-secondary ">
       <div className="container mx-auto flex my-4 p-5 items-center justify-between  rounded-md">
@@ -21,7 +22,7 @@ export function Header() {
           </div>
         </Link>
         <div className="flex gap-2">
-          <Button className="cursor-pointer">Login/Cadastro</Button>
+          <LoginAreaButton initialState={token ? true : false} />
           <CartButton />
         </div>
       </div>
