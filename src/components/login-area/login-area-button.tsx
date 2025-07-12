@@ -31,6 +31,10 @@ export const LoginAreaButton = ({ initialState }: Props) => {
       </>
     );
   } else {
-    return <Button onClick={() => auth.setOpen(true)}>Login /Cadastro</Button>;
+    return (
+      <Button className="cursor-pointer" onClick={() => auth.setOpen(true)}>
+        Login /Cadastro
+      </Button>
+    );
   }
 };
