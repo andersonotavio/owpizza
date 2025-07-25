@@ -7,39 +7,28 @@ import { CustomInput } from "../layout/custom-input";
 import { Button } from "../ui/button";
 import { api } from "@/lib/axios";
 
-const schema = z
-  .object({
-    name: z.string().min(2, "Campo obrigatório"),
-    email: z.email("Email invalido"),
-    password: z.string().min(2, "Campo obrigatótio"),
-    confirmPassword: z.string().min(2, "Campo obrigatótio"),
-  })
-  .refine((data: any) => data.password === data.confirmPassword, {
-    message: "Senha não são iguais",
-    path: ["confirmPassword"],
-  });
+const schema = z.object({
+  email: z.email("Email invalido"),
+  password: z.string().min(2, "Campo obrigatótio"),
+});
 
 type Props = {
   email: string;
 };
 
-export const LoginAreaSignUp = ({ email }: Props) => {
+export const LoginAreaSignIn = ({ email }: Props) => {
   const auth = useAuth();
   const [loading, setLoading] = useState(false);
   const [errors, setErros] = useState<any>(null);
 
-  const [nameField, setNameField] = useState("");
   const [emailField, setEmailField] = useState(email);
   const [passwordField, setPasswordField] = useState("");
-  const [confirmPasswordField, setConfirmPasswordField] = useState("");
 
   const handleButton = async () => {
     setErros(null);
     const validateData = schema.safeParse({
-      name: nameField,
       email: emailField,
       password: passwordField,
-      confirmPassword: confirmPasswordField,
     });
     if (!validateData.success) {
       const treeifieldErros = treeifyError(validateData.error);
@@ -49,14 +38,12 @@ export const LoginAreaSignUp = ({ email }: Props) => {
     }
     try {
       setLoading(true);
-      const signupReq = await api.post("/auth/signup", {
-        name: validateData.data.name,
+      const signinReq = await api.post("/auth/signin", {
         email: validateData.data.email,
         password: validateData.data.password,
-        confirmPassword: validateData.data.confirmPassword,
       });
       setLoading(false);
-      const data = signupReq.data as { token?: string; error?: string };
+      const data = signinReq.data as { token?: string; error?: string };
       if (!data.token) {
         alert(data.error);
       } else {
@@ -70,19 +57,6 @@ export const LoginAreaSignUp = ({ email }: Props) => {
 
   return (
     <>
-      <div>
-        <p className="mb-2">Digite seu nome</p>
-        <CustomInput
-          name="name"
-          errors={errors}
-          disabled={loading}
-          type="text"
-          value={nameField}
-          onChange={(e) => setNameField(e.target.value)}
-          autoFocus
-        />
-      </div>
-
       <div>
         <p className="mb-2">Digite seu e-mail</p>
         <CustomInput
@@ -104,18 +78,7 @@ export const LoginAreaSignUp = ({ email }: Props) => {
           type="password"
           value={passwordField}
           onChange={(e) => setPasswordField(e.target.value)}
-        />
-      </div>
-
-      <div>
-        <p className="mb-2">Repita sua senha</p>
-        <CustomInput
-          name="confirmPassword"
-          errors={errors}
-          disabled={loading}
-          type="password"
-          value={confirmPasswordField}
-          onChange={(e) => setConfirmPasswordField(e.target.value)}
+          autoFocus
         />
       </div>
 

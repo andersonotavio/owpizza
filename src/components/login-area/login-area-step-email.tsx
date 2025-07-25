@@ -39,7 +39,6 @@ export const LoginAreaStepEmail = ({ validateEmail }: Props) => {
       });
       setLoading(false);
 
-      // Assert the type of emailReq.data
       const data = emailReq.data as { exists: boolean };
 
       validateEmail(data.exists ? true : false, validateData.data.email);

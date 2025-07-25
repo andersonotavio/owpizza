@@ -33,7 +33,7 @@ export const createUser = async (
       data: {
         name,
         email: email.toLowerCase(),
-        password,
+        password: bcrypt.hashSync(password, 10),
       },
     });
     return {
