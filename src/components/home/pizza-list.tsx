@@ -5,18 +5,20 @@ import { PizzaItem } from "./pizza-item";
 import { useProducts } from "@/store/products";
 import { useEffect } from "react";
 
+type PizzaProduct = Omit<Product, "price"> & { price: number };
+
 type Props = {
-  pizzas: Product[];
+  pizzas: PizzaProduct[];
 };
 
 export const PizzaList = ({ pizzas }: Props) => {
   const products = useProducts();
-  useEffect(() => products.setProducts(pizzas), []);
+  useEffect(() => products.setProducts(pizzas as unknown as Product[]), []);
 
   return (
     <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-      {pizzas.map((item: Product) => (
-        <PizzaItem key={item.id} data={item} />
+      {pizzas.map((item: PizzaProduct) => (
+        <PizzaItem key={item.id} data={item as unknown as Product} />
       ))}
     </div>
   );

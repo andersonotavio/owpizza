@@ -183,8 +183,7 @@ const config = {
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": null,
-    "schemaEnvPath": "../../../.env"
+    "rootEnvPath": null
   },
   "relativePath": "../../../prisma",
   "clientVersion": "6.7.0",
@@ -193,11 +192,12 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
         "fromEnvVar": "DATABASE_URL",
-        "value": "postgresql://pizza_db_owner:npg_6KYCToik9Upe@ep-wild-pond-a5zhdwao-pooler.us-east-2.aws.neon.tech/pizza_db?sslmode=require"
+        "value": null
       }
     }
   },

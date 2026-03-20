@@ -11,10 +11,10 @@ export default async function Page() {
 
   let pizzas = await getAllProducts();
 
-  // Aplique a mesma transformação das imagens
   let pizzasItems = pizzas.map((pizza) => ({
     ...pizza,
-    image: `${process.env.NEXT_PUBLIC_BASE_URL}/pizzas/${pizza.image}`,
+    price: Number(pizza.price),
+    image: `${process.env.NEXT_PUBLIC_BASE_URL || ''}/pizzas/${pizza.image}`,
   }));
 
   return (
