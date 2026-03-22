@@ -3,18 +3,15 @@ import { Header } from "@/components/layout/header";
 import { PizzaList } from "@/components/home/pizza-list";
 // import { Product } from "@/generated/prisma";
 import { getAllProducts } from "@/services/product";
-import { decimalToMoney } from "@/lib/utils";
+import { decimalToMoney, getPizzaImage } from "@/lib/utils";
 
 export default async function Page() {
-  // const pizzasReq = await api.get<{ pizzas: Product[] }>('/pizzas');
-  // const pizzas = pizzasReq.data.pizzas ?? [];
-
   let pizzas = await getAllProducts();
 
   let pizzasItems = pizzas.map((pizza) => ({
     ...pizza,
     price: Number(pizza.price),
-    image: `${process.env.NEXT_PUBLIC_BASE_URL || ''}/pizzas/${pizza.image}`,
+    image: getPizzaImage(pizza.name),
   }));
 
   return (
